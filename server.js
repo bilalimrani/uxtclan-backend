@@ -2,7 +2,7 @@ var express = require('express');
 const nodemailer = require('nodemailer');
 var app = express();
 
-let testAccount = await nodemailer.createTestAccount();
+let testAccount = nodemailer.createTestAccount();
 let transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
   port: 587,
@@ -12,7 +12,6 @@ let transporter = nodemailer.createTransport({
     pass: testAccount.pass, // generated ethereal password
   },
 });
-
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -25,19 +24,18 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 // set the home page route
-app.get('/', function(req, res) {
-
-	// ejs render automatically looks in the views folder
-	let info = await transporter.sendMail({
+app.get('/', async function (req, res) {
+  // ejs render automatically looks in the views folder
+  let info = transporter.sendMail({
     from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: "bimrani816@gmail.com", // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+    to: 'bimrani816@gmail.com', // list of receivers
+    subject: 'Hello ✔', // Subject line
+    text: 'Hello world?', // plain text body
+    html: '<b>Hello world?</b>', // html body
   });
-	res.render('index');
+  res.render('index');
 });
 
-app.listen(port, function() {
-	console.log('Our app is running on http://localhost:' + port);
+app.listen(port, function () {
+  console.log('Our app is running on http://localhost:' + port);
 });
