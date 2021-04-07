@@ -27,7 +27,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', async function (req, res) {
   // ejs render automatically looks in the views folder
   let info = transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
+    from: 'bimrani816@gmail.com', // sender address
     to: 'bimrani816@gmail.com', // list of receivers
     subject: 'Hello ✔', // Subject line
     text: 'Hello world?', // plain text body
